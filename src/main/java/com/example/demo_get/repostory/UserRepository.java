@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -25,7 +26,19 @@ public interface UserRepository extends JpaRepository <UserEntity,Integer>{
 
     @Modifying
     @Transactional
-    @Procedure(procedureName = "command.getId")
-    List<UserEntity> getbyId(@Param("Id") Integer Id);
+    @Query(value = "{call PKG_COMMAND.INSERT_COMMAND_COMPLETE(?1,?2,?3,?4,?5,?6,?7,?8) }",nativeQuery = true)
+    void insertCommandComplete(String nameUser, String nameStock, Boolean isSale, Integer stockPrice, Integer realStockPrice, Integer stockNumber, Integer realStockNumber, Timestamp timeCreate);
+
+    @Modifying
+    @Transactional
+    @Query(value = "{call PKG_COMMAND.DELETE_COMMAND(?1)}",nativeQuery = true)
+    void deleteTable(Integer Id);
+
+    @Modifying
+    @Transactional
+    @Query(value = "{call PKG_COMMAND.UPDATE_COMMAND(?1, ?2 }",nativeQuery = true)
+    void updateTable( Integer id, Integer stockNumber);
+
+    UserEntity getById(Integer id);
 }
 

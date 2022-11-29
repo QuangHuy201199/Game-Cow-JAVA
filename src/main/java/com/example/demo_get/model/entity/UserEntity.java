@@ -16,16 +16,6 @@ import java.sql.Timestamp;
 @Entity
 
 @Table(name="COMMAND")
-
-@NamedStoredProcedureQuery(name = "command.addd",
-        resultClasses = UserEntity.class,
-        procedureName = "PKG_COMMAND.GET_ID",
-        parameters={
-                @StoredProcedureParameter(name="v_id", type=Integer.class, mode=ParameterMode.IN),
-                @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, name = "v_cursor", type = ResultSet.class)
-        }
-)
-
 public class UserEntity {
     @Id
     @Column(name = "ID")

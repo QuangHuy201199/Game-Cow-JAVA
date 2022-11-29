@@ -32,7 +32,7 @@ public class ControllerUser {
     public ResponseEntity<?> create(@RequestBody UserIn userIn){
         return  new ResponseEntity<>(userService.create(userIn),HttpStatus.CREATED);}
 
-     @DeleteMapping("/{Id}")
+     @DeleteMapping("/delete/{Id}")
      public ResponseEntity<?> delete(@PathVariable Integer Id){
          return new ResponseEntity<>(userService.delete(Id),HttpStatus.OK);
         }
